@@ -1,3 +1,4 @@
+import sys
 import json
 from pprint import pprint
 import os
@@ -39,7 +40,9 @@ def showrequest():
     		print "============================================================================="
     		print "id : %s" % str(ss)
     		print "user : %s" % i["user"]
-    		print "url : %s" % i["url"]
+    		sys.stdout.write ("url : ")
+    		for j in i["url"]:
+    			print j
     		print "volunteered : %s" % i["volun"]
     		print "Done? : %s" % i["done"]
     		ss=ss+1
@@ -47,7 +50,7 @@ def showrequest():
     	print "============================================================================="
 if __name__ == "__main__":
 
-	os.system("python scraper.py")
+	#os.system("python scraper.py")
 	parser = optparse.OptionParser('usage: %prog [options]')
 	parser.add_option("--show", "-s", dest="sflag",action="store_true", help="Show Request")
 	parser.add_option("--select", "-i", dest="ssid",action="store",type="int", help="Index of link")
@@ -58,4 +61,5 @@ if __name__ == "__main__":
 		showrequest()
 	if(options.ssid is not None):
 		download(options.ssid)
+
 
