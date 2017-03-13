@@ -8,9 +8,6 @@ import json
 import optparse
 import lxml.html
 
-
-exp1="(https?|ftp|file):\/\/[-A-Z0-9+&@#(\/%?=~_|!:,.;]*[-A-Z0-9+&@#)\/%=~_|]"
-exp2="(magnet):?[-A-Z0-9+&@#()\/%?=~_|!:,.;]*[-A-Z0-9+&@#()\/%=~_|]"
 exp="(magnet):?[-A-Z0-9+&@#()\/%?=~_|!:,.;]*[-A-Z0-9+&@#()\/%=~_|]|(https?|ftp|file):\/\/[-A-Z0-9+&@#(\/%?=~_|!:,.;]*[-A-Z0-9+&@#)\/%=~_|]"
 url="http://172.16.86.222/dchub/request&page="
 userlinks =[]
@@ -25,7 +22,6 @@ for i in range(1,6):
 		user=soup.select('body > div.container > div.row > div.span7 > div:nth-of-type('+str(j)+') > h4 > a')
 		user = user[0].text
 		#print user
-		
 		urls=re.search(exp,box,re.IGNORECASE)
 		temp=dict()
 		temp["user"]=user
@@ -44,5 +40,4 @@ for i in range(1,6):
 print "\n"
 json.dump(userlinks, open('users.dat', 'w'))
 
-		#sel=CSSSelector('body div.container div.row div.span7 div:nth-child(10) div.post a')
-		#print sel()
+		
