@@ -7,12 +7,11 @@ import re
 import json
 import optparse
 import lxml.html
-from lxml import etree
-#from lxml.cssselect import CSSSelector
-#rr='\b(magnet):?[-A-Z0-9+&@#()\/%?=~_|!:,.;]*[-A-Z0-9+&@#()\/%=~_|]'
-#N= re.compile(rr)
-nn="""\b(https?|ftp|file):\/\/[-A-Z0-9+&@#(\/%?=~_|!:,.;]*[-A-Z0-9+&@#)\/%=~_|]"""
-M=re.compile(nn)
+
+
+exp1="(https?|ftp|file):\/\/[-A-Z0-9+&@#(\/%?=~_|!:,.;]*[-A-Z0-9+&@#)\/%=~_|]"
+exp2="(magnet):?[-A-Z0-9+&@#()\/%?=~_|!:,.;]*[-A-Z0-9+&@#()\/%=~_|]"
+exp="(magnet):?[-A-Z0-9+&@#()\/%?=~_|!:,.;]*[-A-Z0-9+&@#()\/%=~_|]|(https?|ftp|file):\/\/[-A-Z0-9+&@#(\/%?=~_|!:,.;]*[-A-Z0-9+&@#)\/%=~_|]"
 url="http://172.16.86.222/dchub/request&page="
 userlinks =[]
 for i in range(1,6):
@@ -22,29 +21,26 @@ for i in range(1,6):
 	sys.stdout.write(".")
 	for j in range(1,11):
 		link=soup.select('body > div.container > div.row > div.span7 > div:nth-of-type('+str(j)+') > div.post')
+		box = link[0].text
 		user=soup.select('body > div.container > div.row > div.span7 > div:nth-of-type('+str(j)+') > h4 > a')
-		if(len(link)):
-			urls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', str(link[0].text))
-		else:
-			continue
-		#urls=M.findall(str(link))
-		if(len(user)!=0):	
-			#print user[0].text
-			temp=dict()
-			temp["user"]=user[0].text
-			temp["url"]=[]
-			temp["done"]="No"
-			temp["volun"]="false"
-			for k in urls:
-				temp["url"].append(k)
-			if(len(temp["url"])!=0):
-				userlinks.append(temp)
+		user = user[0].text
+		#print user
 		
-		#	for f in k:
-		#		pos=pos+1
-		#		if f=='\\':
-		#			break
-			#print k[:pos-1]
+		urls=re.search(exp,box,re.IGNORECASE)
+		temp=dict()
+		temp["user"]=user
+		temp["url"]=[]
+		temp["done"]="No"
+		temp["volun"]="No"
+		while urls is not None:
+			#print urls.group(0)
+			temp["url"].append(urls.group(0))
+			box=box[box.find(urls.group(0))+len(urls.group(0)):]
+			urls=re.search(exp,box,re.IGNORECASE)
+			pass
+		if(len(temp["url"])!=0):
+			userlinks.append(temp)
+		
 print "\n"
 json.dump(userlinks, open('users.dat', 'w'))
 
