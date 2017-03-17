@@ -9,7 +9,7 @@ password = "123456"
 
 secret = "qwerty"
 
-url = "172.16.86.222:13000/login?nick="
+url = "http://172.16.86.222:13000/login?nick="
 url += username
 url += "&password="
 url += password
