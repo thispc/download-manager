@@ -28,3 +28,44 @@ Options:
     -f FID, --fid=FID   Delete download links by queue file ids
     -p PID, --pid=PID   Delete download links by queue package ids
 ```
+
+## Example Usage:
+
+1) Clone the repo
+```sh
+git clone https://github.com/thispc/download-manager.git
+```
+2) Change directory to the repo
+```sh
+cd download-manager
+```
+3) Run the following command to create a config file (Initial Step)
+```sh
+python dmanage.py -c
+```
+4) Follow all the steps and create a configuration file
+
+5) Start the download server
+```sh
+python dmanage.py -s
+```
+6) Try to add a link to start the download ()
+```sh
+python dmanage.py -a <link> -n <username_of_requested_person>
+```
+ex:
+```sh
+python dmanage.py -a http://speedtest.atlanta.linode.com/100MB-atlanta.bin -n user1
+```
+7) Manage the downloads
+```sh
+python dmanage.py -m
+```
+8) See the queue
+```sh
+python dmanage.py -q
+```
+9) Stop the server
+```sh
+python dmanage.py -x
+```
