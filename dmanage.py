@@ -79,11 +79,12 @@ if __name__ == "__main__":
 	parser.add_option("--usermanage", "-u", dest="uflag",action="store_true", help="User Management")
 	group1 = optparse.OptionGroup(parser, 'Add Links directly')
 	group2 = optparse.OptionGroup(parser, 'Add Links by DC request id shown by ' +argv[0]+ ' -S command')
-	group3 = optparse.OptionGroup(parser, 'Deleting downloads by queue ID. View queue by running '+argv[0]+' -q')
+	group3 = optparse.OptionGroup(parser, 'Deleting downloads by ID. View queue by running '+argv[0]+' -q')
 	group1.add_option("--link", "-a", action="append", help="Links")
 	group1.add_option("--name","-n", action="store",dest="name",help="Name of the links group")
 	group2.add_option("--ssid", "-i", action="append",help="Add download links by ids")
-	group3.add_option("--fid", "-d", action="append",help="Delete download links by queue ids")
+	group3.add_option("--fid", "-f", action="append",help="Delete download links by queue file ids")
+	group3.add_option("--pid", "-p", action="append",help="Delete download links by queue package ids")
 	parser.add_option_group(group1)
 	parser.add_option_group(group2)
 	parser.add_option_group(group3)
@@ -93,6 +94,7 @@ if __name__ == "__main__":
 	linksid=options.ssid
 	links=options.link
 	deleteids=options.fid
+	deleteidsp=options.pid
 	if(options.sflag):
 		if not exists(wpath+"/pyload.conf"):
 			print "\nConfig File does not exists. \nFirst run '%s -c' command to make configuration file\n" % sys.argv[0]
@@ -192,6 +194,17 @@ if __name__ == "__main__":
 		try:
 			os.system("python pyLoadCli.py del_file "+idappend)
 			print "Deleted file(s) successfully"
+		except Exception:
+			print "Error in deletion...Abort!"
+			raise Exception
+			sys.exit(2)
+	if (deleteidsp is not None):
+		idappend=""
+		for j in deleteidsp:
+			idappend=idappend+" "+j
+		try:
+			os.system("python pyLoadCli.py del_package "+idappend)
+			print "Deleted packages(s) successfully"
 		except Exception:
 			print "Error in deletion...Abort!"
 			raise Exception
