@@ -1,11 +1,11 @@
 import json
 import requests
 
-username = input('Enter your username: ')
-#test123
+#username = input('Enter your username: ')
+username = "test123"
 
-password = input('Enter your password: ')
-#123456
+#password = input('Enter your password: ')
+password = "123456"
 
 secret = "qwerty"
 
