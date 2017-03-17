@@ -19,3 +19,5 @@ url += secret
 r = requests.get(url)
 
 js = json.loads(r.text)
+
+print js
