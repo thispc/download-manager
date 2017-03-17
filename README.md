@@ -49,14 +49,28 @@ python dmanage.py -c
 ```sh
 python dmanage.py -s
 ```
-6) Try to add a link to start the download ()
-```sh
-python dmanage.py -a <link> -n <username_of_requested_person>
-```
-ex:
-```sh
-python dmanage.py -a http://speedtest.atlanta.linode.com/100MB-atlanta.bin -n user1
-```
+6) Start the downloads. There are two ways to do it
+
+(1) Show all the DC requests
+  ```sh
+  python dmanage.py -S
+  ```
+  ```sh
+  python dmanage.py -i <id no of the request>
+  ```
+  eg:
+  ```sh
+  python dmanage.py -i 1
+  ```
+(2) Add a link manually along with the nick of the user who requested the download
+  ```sh
+  python dmanage.py -a <link> -n <username_of_requested_person>
+  ```
+  ex:
+  ```sh
+  python dmanage.py -a http://speedtest.atlanta.linode.com/100MB-atlanta.bin -n user1
+  ```
+
 7) Manage the downloads
 ```sh
 python dmanage.py -m
